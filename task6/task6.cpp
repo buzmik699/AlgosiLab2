@@ -32,22 +32,27 @@ Chain* createListFromFile(string namefile) {
     return head;
 }
 
-
 void deleteElements(Chain*& lst, int value) {
     Chain* head = lst;
     Chain* prev = NULL;
     bool flag = true;
+    while (lst->data == value) {
+        lst = lst->next;
+        head = lst;
+    }
+
     while (lst != NULL && flag) {
         prev = lst;
         if (lst->data == 0) {
             flag = false;
-        } if (flag && lst->next->data == value) {
+        }
+        if (flag && lst->next->data == value) {
             lst->next = lst->next->next;
         }
         else {
             lst = lst->next;
         }
-        
+
     } lst = head;
 }
 
@@ -58,5 +63,6 @@ int main() {
     print(lst);
     
 }
+
 
 

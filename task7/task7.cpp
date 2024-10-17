@@ -61,9 +61,9 @@ void insertion(Chain*& lst, int x, int z) {
 
 int main() {
     int z = 4;
-    int x = -1;
+    int x = 4;
     Chain* lst = createListFromFile("input.txt");
-    insertion(lst, -1, 4);
+    insertion(lst, -1, 6);
     print(lst);
 
 }

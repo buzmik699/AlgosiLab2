@@ -15,6 +15,18 @@ void print(const Chain* p) {
     }
 }
 
+
+void addElementEnd(Chain*& head, const int value) {
+    Chain* newNode = new Chain();
+    newNode->data = value;
+    if (head == NULL) head = newNode;
+    else {
+        Chain* p = head;
+        while (p->next != NULL) p = p->next;
+        p->next = newNode;
+    }
+}
+
 void addElementBegin(Chain*& head, const int value) {
     Chain* newNode = new Chain();
     newNode->data = value;
@@ -42,29 +54,38 @@ Chain* createListFromFile(string namefile) {
 void deleteElements(Chain*& first, Chain*& second, int value) {
     Chain* head = first;
     bool flag = false;
+    Chain* ans = NULL;
     while (first != NULL) {
         if (flag) {
-            addElementBegin(second, first->data);
+            addElementEnd(ans, first->data);
         }
         if (first->data == value) flag = true;
         first = first->next;
     }
     first = head;
     head = first;
-    while (true) {
-        if (first->data == value) {
-            first->next = NULL;
-            break;
+    if (flag) {
+        while (true) {
+            if (first->data == value) {
+                first->next = NULL;
+                break;
+            }
+            first = first->next;
+        } first = head;
+        while (second != NULL) {
+            addElementEnd(ans, second->data);
+            second = second->next;
         }
-        first = first->next;
-    } first = head;
+        second = ans;
+    }
+    
 }
 
 
 int main() {
     Chain* first = createListFromFile("input.txt");
-    Chain* second = NULL;
-    deleteElements(first, second, 4);
+    Chain* second = createListFromFile("input2.txt");
+    deleteElements(first, second, 1);
     print(first);
     cout << "___________\n";
     print(second);

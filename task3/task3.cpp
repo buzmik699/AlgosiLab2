@@ -65,7 +65,7 @@ int main() {
     lst = initListFromKeyboard();
     getLists(lst, pos, neg);
     cout << "Positive numbers:\n"; print(pos);
-    cout << "__________________";
+    cout << "__________________\n";
     cout << "Negative numbers:\n"; print(neg);
 
 

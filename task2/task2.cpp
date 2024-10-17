@@ -5,7 +5,7 @@ using namespace std;
 
 struct Chain {
     int data;
-    Chain* next = nullptr;
+    Chain* next = NULL;
 };
 
 
@@ -13,13 +13,13 @@ void insertSorted(Chain*& head, int value) {
     Chain* newNode = new Chain();
     newNode->data = value;
 
-    if (head == nullptr || head->data >= value) {
+    if (head == NULL || head->data >= value) {
         newNode->next = head;
         head = newNode;
     }
     else {
         Chain* current = head;
-        while (current->next != nullptr && current->next->data < value) {
+        while (current->next != NULL && current->next->data < value) {
             current = current->next;
         }
         newNode->next = current->next;
@@ -28,7 +28,7 @@ void insertSorted(Chain*& head, int value) {
 }
 
 Chain* insertSortedRecursive(Chain* head, int value) {
-    if (head == nullptr || head->data >= value) {
+    if (head == NULL || head->data >= value) {
         Chain* newNode = new Chain();
         newNode->data = value;
         newNode->next = head;
@@ -41,38 +41,50 @@ Chain* insertSortedRecursive(Chain* head, int value) {
 
 void printList(Chain* head) {
     Chain* current = head;
-    while (current != nullptr) {
+    while (current != NULL) {
         cout << current->data << " ";
         current = current->next;
     }
     cout << endl;
 }
 
+void addList(Chain*& list, Chain*& head) {
+    while (head != NULL) {
+        insertSorted(list, head->data);
+        head = head->next;
+    }
+}
+
 
 int main() {
-    Chain* head = nullptr;
+    Chain* main_list = NULL;
+    Chain* lst1 = NULL;
+    Chain* lst2 = NULL;
     int value1;
+
 
     cout << "Enter integers for list1 (terminate with non-integer input):" << endl;
     while (cin >> value1) {
-        insertSorted(head, value1);
+        insertSorted(lst1, value1);
     }
 
-    // Сбросить состояние cin после некорректного ввода
+    
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "Enter integers for list2 (terminate with non-integer input):" << endl;
     while (cin >> value1) {
-        insertSorted(head, value1);
+        insertSorted(lst2, value1);
     }
+    addList(main_list, lst1);
+    addList(main_list, lst2);
 
-    // Сбросить состояние cin после некорректного ввода
+    
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "Sorted list:" << endl;
-    printList(head);
+    printList(main_list);
 
     return 0;
 }
